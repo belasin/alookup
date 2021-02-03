@@ -33,7 +33,6 @@ RUN rm -fr /root/.cache
 
 RUN mkdir -p /alookup/configs
 RUN mkdir -p /alookup/run
-RUN mkdir -p /alookup/export
 RUN mkdir -p /alookup/data
 RUN mkdir -p /alookup/logs
 
