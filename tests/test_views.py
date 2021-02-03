@@ -1,9 +1,20 @@
+"""Summary
+"""
 from alookup.views.default import lookup_view
+from alookup.lib.caching import setup_cache_fromsettings
 from pyramid.testing import DummyRequest
 import pytest
 
 @pytest.fixture
 def apscan_data(app):
+    """Summary
+    
+    Args:
+        app (TYPE): Description
+    
+    Returns:
+        TYPE: Description
+    """
     test_json_body = {
         "apscan_data": [
           {
@@ -139,12 +150,19 @@ def apscan_data(app):
         ]
     }
     request = DummyRequest(json_body=test_json_body, method="POST")
-    request.registry = app.registry
     app.registry.settings["geolocate.api_key"] = "AIzaSyCCK6hPzvUI1_XbDCV4pC1HN_6bneUejYc"
+    app.registry.settings["cache.enabled"] = "True"
+    setup_cache_fromsettings(app.registry.settings)
+    request.registry = app.registry
     request.host = 'example.com'
     return request
 
 def test_perform_lookup(apscan_data):
+    """Summary
+    
+    Args:
+        apscan_data (TYPE): Description
+    """
     res = lookup_view(apscan_data)
     assert apscan_data.response.status_int == 200
     assert res != None

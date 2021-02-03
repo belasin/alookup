@@ -4,7 +4,7 @@ Google Lookup System
 import logging
 import requests
 import json
-from pyramid.threadlocal import get_current_registry
+from caching import GoogleGeocodeCache as cache
 
 log = logging.getLogger("google.geolocation")
 
@@ -23,22 +23,6 @@ class InvalidAPRequest(Exception):
     """
 
     pass
-
-
-def cache(f):
-    def cache_wrapper(apscan, settings):
-        """Summary
-
-        Args:
-            apscan (TYPE): Description
-            settings (TYPE): Description
-
-        Returns:
-            TYPE: Description
-        """
-        res = f(apscan, settings)
-        return res
-    return cache_wrapper
 
 
 def format_ap_entry(ap_entry):

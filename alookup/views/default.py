@@ -1,7 +1,9 @@
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPBadRequest
+from pyramid.httpexceptions import HTTPInternalServerError
 from ..lib.glookup import perform_lookup
 from ..lib.glookup import InvalidAPRequest
+from ..lib.glookup import InvalidConfiguration
 
 
 @view_config(route_name='root', renderer='json')
@@ -27,7 +29,7 @@ def lookup_view(request):
     except InvalidAPRequest, exc:
         raise HTTPBadRequest(str(exc))
     except InvalidConfiguration, exc:
-        raise HTTPBadRequest(str(exc))
+        raise HTTPInternalServerError(str(exc))
 
 
 def includeme(config):
