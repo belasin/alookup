@@ -1,4 +1,4 @@
-from alookup.views.default import perform_lookup
+from alookup.views.default import lookup_view
 from pyramid.testing import DummyRequest
 import pytest
 
@@ -140,10 +140,11 @@ def apscan_data(app):
     }
     request = DummyRequest(json_body=test_json_body, method="POST")
     request.registry = app.registry
+    app.registry.settings["geolocate.api_key"] = "AIzaSyCCK6hPzvUI1_XbDCV4pC1HN_6bneUejYc"
     request.host = 'example.com'
     return request
 
 def test_perform_lookup(apscan_data):
-    res = perform_lookup(apscan_data)
+    res = lookup_view(apscan_data)
     assert apscan_data.response.status_int == 200
     assert res != None

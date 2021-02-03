@@ -1,12 +1,25 @@
 """
 Google Lookup System
 """
+import logging
+import requests
+import json
+from pyramid.threadlocal import get_current_registry
+
+log = logging.getLogger("google.geolocation")
+
+
+class InvalidConfiguration(Exception):
+    pass
 
 class InvalidAPRequest(Exception):
     pass
 
-def lookup_cache(apscan):
-    pass
+def cache(f):
+    def cache_wrapper(apscan, settings):
+        res = f(apscan, settings)
+        return res
+    return cache_wrapper
 
 def format_ap_entry(ap_entry):
     """Processes the Access Point dictionary and produce a stripped down entry for use in the request dataset
@@ -44,7 +57,19 @@ def normalise_request(apscan):
                 out += [formatted_ent]
     return out
 
-def perform_lookup(apscan):
+@cache
+def geolocate(apscan, settings={}):
+    log.debug("Request for: %s" % apscan)
+    api_key = settings.get("geolocate.api_key")
+    if not api_key:
+        raise InvalidConfiguration("geolocate.api_key has not been set in the config")
+    url = "https://www.googleapis.com/geolocation/v1/geolocate?key=" + api_key
+    _post_info = dict(wifiAccessPoints=apscan)
+    response = requests.post(url,data=json.dumps(_post_info))
+    if response.status_code == 200:
+        return response.json()
+
+def perform_lookup(apscan, settings=None):
     """Sends a request to google's geolocation service to lookup the location
     based on the Access Point list provided in the request
     
@@ -53,9 +78,9 @@ def perform_lookup(apscan):
     """
     #We need to start by assuming we may not get the information
     #In the correct format
+    if not settings:
+        settings = get_current_registry().settings
     apscan = normalise_request(apscan)
-
     if not apscan:
         raise InvalidAPRequest("Invalid Request")
-	print(repr(apscan))
-	pass
+    return geolocate(apscan, settings)

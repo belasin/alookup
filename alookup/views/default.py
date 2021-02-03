@@ -22,11 +22,12 @@ def lookup_view(request):
         request_payload = request.json_body
     except ValueError, exc:
         raise HTTPBadRequest(str(exc))
-
     try:
-        return perform_lookup(request_payload)
+        return perform_lookup(request_payload, request.registry.settings)
     except InvalidAPRequest, exc:
         raise HTTPBadRequest(str(exc))
-
+    except InvalidConfiguration, exc:
+        raise HTTPBadRequest(str(exc))
+        
 def includeme(config):
     config.add_route('root', '/')
