@@ -9,7 +9,7 @@ def main(global_config, **settings):
         if not "cache.regions" in settings:
             #Set default cache regions (if not set)
             settings["cache.regions"] = "default_term, second, short_term, long_term"
-        config.include('pyramid_beaker')        
+        config.include('.lib.caching')
     	#Setup Views
         config.include('.views')
         #Scan for decorator configs

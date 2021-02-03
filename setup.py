@@ -11,7 +11,6 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
 requires = [
     'plaster_pastedeploy',
     'pyramid',
-    'pyramid_jinja2',
     'pyramid_debugtoolbar',
     'pyramid_beaker',
     'waitress',
@@ -26,7 +25,7 @@ tests_require = [
 
 setup(
     name='alookup',
-    version='0.0',
+    version='0.1',
     description='alookup',
     long_description=README + '\n\n' + CHANGES,
     classifiers=[
@@ -35,8 +34,8 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
     ],
-    author='',
-    author_email='',
+    author='Justin Peter Unwin',
+    author_email='junwin@gmail.com',
     url='',
     keywords='web pyramid pylons',
     packages=find_packages(exclude=['tests']),
