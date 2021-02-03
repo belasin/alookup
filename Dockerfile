@@ -12,9 +12,9 @@ RUN pip install 'plaster_pastedeploy' 'pyramid' 'pyramid_debugtoolbar' 'pyramid_
 
 RUN mkdir /alookup
 RUN mkdir /alookup-dist
-RUN mkdir /alookup-dist/pims-src
+RUN mkdir /alookup-dist/alookup-src
 
-WORKDIR /pims/alookup-src
+WORKDIR /alookup/alookup-src
 
 ADD . .
 
@@ -25,9 +25,10 @@ WORKDIR /alookup
 ENV PATH="/alookup:/alookup/bin:${PATH}"
 
 RUN cp /alookup/alookup-src/docker/entry.sh /alookup/
+RUN cp /alookup/alookup-src/production.ini /alookup/config.ini
 RUN chmod a+x /alookup/entry.sh
 
-RUN rm -fr /pims/alookup-src
+RUN rm -fr /alookup/alookup-src
 
 RUN rm -fr /root/.cache
 
