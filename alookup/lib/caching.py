@@ -110,7 +110,6 @@ class GoogleGeocodeCache(object):
                     return res["result"]
 
     def __call__(self, *a):
-        print self.is_enabled
         if self.is_enabled:
             res = self.lookup(a[0])
             if res:

@@ -168,3 +168,14 @@ curl --request POST --data '{
   ]
 }' http://localhost:8080
 ```
+
+TODO
+====
+
+Some things that need to be done
+ - I need to complete the documentation
+ - Need to add in the RedisBackend for the caching system
+ - Add kubernetes documentation
+ - Could theoretically be easily converted to Python3
+ - Add some direct testing of the caching system
+ - Cache entries need a TTL, the DictBackend will need to invalidate cached items after a configured amount of time
