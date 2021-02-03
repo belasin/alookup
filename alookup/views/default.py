@@ -7,13 +7,13 @@ from ..lib.glookup import InvalidAPRequest
 @view_config(route_name='root', renderer='json')
 def lookup_view(request):
     """Summary
-    
+
     Args:
         request (pyramid.request): ...
-    
+
     Returns:
         LIST: Description
-    
+
     Raises:
         HTTPBadRequest: On an error in the request, an HTTPBadRequest is raised
     """
@@ -28,6 +28,7 @@ def lookup_view(request):
         raise HTTPBadRequest(str(exc))
     except InvalidConfiguration, exc:
         raise HTTPBadRequest(str(exc))
-        
+
+
 def includeme(config):
     config.add_route('root', '/')
