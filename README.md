@@ -173,7 +173,6 @@ TODO
 ====
 
 Some things that need to be done
- - I need to complete the documentation
  - Need to add in the RedisBackend for the caching system
  - Add kubernetes documentation
  - Could theoretically be easily converted to Python3

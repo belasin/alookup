@@ -11,7 +11,7 @@ log = logging.getLogger("google.geolocation")
 
 class InvalidConfiguration(Exception):
 
-    """Summary
+    """InvalidConfiguration exception is thrown on an instance of a required configuration not being set
     """
 
     pass
@@ -19,7 +19,7 @@ class InvalidConfiguration(Exception):
 
 class InvalidAPRequest(Exception):
 
-    """Summary
+    """InvalidAPRequest exception is thrown when the json request body is missing required information, i.e. is malformed
     """
 
     pass
@@ -65,11 +65,11 @@ def normalise_request(apscan):
 
 @cache
 def geolocate(apscan, settings={}):
-    """Summary
+    """gelocate takes a list of dictionaries items that are sent through to google via a post request the resulting is then parsed and returned
 
     Args:
-        apscan (TYPE): Description
-        settings (dict, optional): Description
+        apscan (LIST): Scan of Wifi Access points that should be submitted to google geolocation interface
+        settings (dict, optional): Pyramid Settings instance
 
     Returns:
         TYPE: Description
