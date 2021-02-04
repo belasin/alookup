@@ -12,19 +12,20 @@ Installation
 
 I suggest that you use virtualenv to setup an isolated python environment to execute and work with this application
 
-```
-	git clone https://github.com/jpunwin/alookup.git alookup
-	virtualenv alookup
-	source alookup/bin/activate
-	pip install alookup
-	pserve production.ini
+```console
+git clone https://github.com/jpunwin/alookup.git alookup
+virtualenv alookup
+alookup/bin/pip install ./alookup
+source alookup/bin/activate
+cd alookup
+pserve production.ini
 ```
 
 ## Docker
 
-```
-	docker build -t junwin/alookup https://github.com/jpunwin/alookup.git
-	docker run -p 8080:8080 junwin/alookup:latest
+```console
+docker build -t junwin/alookup https://github.com/jpunwin/alookup.git
+docker run -p 8080:8080 junwin/alookup:latest
 ```
 
 Testing
@@ -32,7 +33,7 @@ Testing
 
 You can simply use cURL if you want to perform a post request
 
-```
+```console
 curl --request POST --data '{
   "apscan_data": [
     {
